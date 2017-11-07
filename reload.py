@@ -36,7 +36,7 @@ def restart_with_reloader():
 def reloader_thread():
     observer = Observer()
     path = '.'
-    event_handler = FileChangedHandler(patterns=['*.py'], ignore_patterns=['.vscode/*', '.idea/*'], ignore_directories=True)
+    event_handler = FileChangedHandler(ignore_patterns=['*/.vscode/*', '*/.idea/*'], ignore_directories=True)
     observer.schedule(event_handler, path)
     observer.start()
     while True:
