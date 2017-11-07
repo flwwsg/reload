@@ -4,7 +4,6 @@ import subprocess
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from watchdog.events import RegexMatchingEventHandler
 from watchdog.events import PatternMatchingEventHandler
 
 try:
@@ -16,8 +15,6 @@ from reload_demo import run
 
 RUN_RELOADER = True
 
-
-# class FileChangedHandler(FileSystemEventHandler):
 class FileChangedHandler(PatternMatchingEventHandler):
 
     def on_any_event(self, event):
@@ -39,9 +36,7 @@ def restart_with_reloader():
 def reloader_thread():
     observer = Observer()
     path = '.'
-    # event_handler = FileChangedHandler(regexes=[r"[a-zA-Z0-9_]*.py"], ignore_regexes=['.vscode/'])
     event_handler = FileChangedHandler(patterns=['*.py'], ignore_patterns=['.vscode/*', '.idea/*'], ignore_directories=True)
-    # event_handler = FileChangedHandler()
     observer.schedule(event_handler, path)
     observer.start()
     while True:
